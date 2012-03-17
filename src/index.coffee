@@ -4,7 +4,7 @@ sysPath = require 'path'
 module.exports = class HandlebarsCompiler
   brunchPlugin: yes
   type: 'template'
-  extension: 'handlebars'
+  extension: 'hbs'
 
   constructor: (@config) ->
     null

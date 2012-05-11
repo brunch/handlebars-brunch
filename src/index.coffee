@@ -5,6 +5,7 @@ module.exports = class HandlebarsCompiler
   brunchPlugin: yes
   type: 'template'
   extension: 'hbs'
+  pattern: /\.(?:hbs|handlebars)$/
 
   constructor: (@config) ->
     null

@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/brunch/handlebars-brunch.png)](http://travis-ci.org/brunch/handlebars-brunch)
 ## handlebars-brunch
 Adds [Handlebars](http://handlebarsjs.com/) support to
 [brunch](http://brunch.io).

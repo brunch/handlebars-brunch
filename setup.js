@@ -14,13 +14,16 @@ var execute = function(pathParts, params, callback) {
   exec(command, function(error, stdout, stderr) {
     if (error != null) return process.stderr.write(stderr.toString());
     console.log(stdout.toString());
+    callback();
   });
 };
 
 if (mode === 'postinstall') {
   fsExists(sysPath.join(__dirname, 'lib'), function(exists) {
     if (exists) return;
-    execute(['node_modules', 'coffee-script', 'bin', 'coffee'], '-o lib/ src/');
+    execute(['node_modules', 'coffee-script', 'bin', 'coffee'], '-o lib/ src/', function() {
+      require('./lib/build-dist')();
+    });
   });
 } else if (mode === 'test') {
   execute(['node_modules', 'mocha', 'bin', 'mocha'],

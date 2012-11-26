@@ -1,3 +1,6 @@
+# handlebars-brunch 1.4.0 (November 26, 2012)
+* Updated handlebars to 1.0rc1.
+
 # handlebars-brunch 1.3.0 (June 29, 2012)
 * Added node.js 0.8 and 0.9 support.
 * Package is now precompiled before every publishing to npm.

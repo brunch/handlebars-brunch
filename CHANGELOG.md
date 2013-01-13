@@ -1,3 +1,6 @@
+# handlebars-brunch 1.5.0 (January 13, 2012)
+* Improved installation process.
+
 # handlebars-brunch 1.4.0 (November 26, 2012)
 * Updated handlebars to 1.0rc1.
 

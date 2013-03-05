@@ -18,7 +18,7 @@
     "node": "~0.6.10 || 0.8 || 0.9"
   },
   "dependencies": {
-    "coffee-script": "*",
+    "coffee-script": "~1.6.x",
     "handlebars": "~1.0.10"
   },
   "devDependencies": {

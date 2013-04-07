@@ -3,9 +3,11 @@ Adds [Handlebars](http://handlebarsjs.com/) support to
 [brunch](http://brunch.io).
 
 ## Usage
-Add `"handlebars-brunch": "x.y.z"` to `package.json` of your brunch app.
+Install the plugin via npm with `npm install --save handlebars-brunch`.
 
-Pick a plugin version that corresponds to your minor (y) brunch version.
+Or, do manual install:
 
-If you want to use git version of plugin, add
+* Add `"handlebars-brunch": "x.y.z"` to `package.json` of your brunch app.
+  Pick a plugin version that corresponds to your minor (y) brunch version.
+* If you want to use git version of plugin, add
 `"handlebars-brunch": "git+https://github.com/brunch/handlebars-brunch.git"`.

@@ -1,4 +1,4 @@
-# handlebars-brunch 1.5.4 (1 June 2013)
+# handlebars-brunch 1.5.4 (4 June 2013)
 * Updated handlebars to 1.0.
 
 # handlebars-brunch 1.5.3 (14 May 2013)

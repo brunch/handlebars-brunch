@@ -14,7 +14,7 @@
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script --require test/common.js"
   },
   "dependencies": {
-    "handlebars": "~1.0.10"
+    "handlebars": "1.0.12"
   },
   "devDependencies": {
     "mocha": "*",

@@ -21,5 +21,5 @@ module.exports = class HandlebarsCompiler
 
   include: [
     (sysPath.join __dirname, '..', 'vendor',
-      'handlebars.runtime-1.0.rc.4.js')
+      'handlebars.runtime-1.0.js')
   ]

@@ -360,3 +360,8 @@ Handlebars.template = Handlebars.VM.template;
 // lib/handlebars/browser-suffix.js
 })(Handlebars);
 ;
+
+if (typeof require === 'function' && typeof require.register === 'function') {
+  require.register('Handlebars', function (exports, require, module) {
+    module.exports = Handlebars;
+});}

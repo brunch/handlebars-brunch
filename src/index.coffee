@@ -1,4 +1,5 @@
 handlebars = require 'handlebars'
+umd = require 'umd-wrapper'
 sysPath = require 'path'
 
 module.exports = class HandlebarsCompiler
@@ -12,7 +13,7 @@ module.exports = class HandlebarsCompiler
 
   compile: (data, path, callback) ->
     try
-      result = "Handlebars.template(#{handlebars.precompile data})"
+      result = umd "Handlebars.template(#{handlebars.precompile data})"
     catch err
       error = err
     finally

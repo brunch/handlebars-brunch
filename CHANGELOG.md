@@ -1,3 +1,6 @@
+# handlebars-brunch 1.7.0 (15 July 2013)
+* Added support for non-common.js wrappers.
+
 # handlebars-brunch 1.5.4 (4 June 2013)
 * Updated handlebars to 1.0.
 

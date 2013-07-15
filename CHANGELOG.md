@@ -1,3 +1,6 @@
+# handlebars-brunch 1.7.2 (15 July 2013)
+* Fixed compilation bug.
+
 # handlebars-brunch 1.7.1 (15 July 2013)
 * Added UMD support.
 

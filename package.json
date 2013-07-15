@@ -1,6 +1,6 @@
 {
   "name": "handlebars-brunch",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Adds Handlebars.js support to brunch.",
   "author": "Paul Miller (http://paulmillr.com/)",
   "homepage": "https://github.com/brunch/handlebars-brunch",

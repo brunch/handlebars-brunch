@@ -12,7 +12,7 @@ module.exports = class HandlebarsCompiler
 
   compile: (data, path, callback) ->
     try
-      result = "Handlebars.template(#{handlebars.precompile data});"
+      result = "Handlebars.template(#{handlebars.precompile data})"
     catch err
       error = err
     finally

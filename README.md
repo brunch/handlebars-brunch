@@ -12,6 +12,24 @@ Or, do manual install:
 * If you want to use git version of plugin, add
 `"handlebars-brunch": "git+https://github.com/brunch/handlebars-brunch.git"`.
 
+### Brunch plugin settings
+If customization is needed or desired, settings can be modified in your brunch
+config file (such as `brunch-config.coffee`):
+
+* __overrides__: _(Function)_ no default
+    * This function will receive the `handlebars` object which you can use to override [Handlebar's public API](https://github.com/wycats/handlebars.js/blob/7f6ef1dd38794f12aee33c76c04f604a7651810b/lib/handlebars/compiler/javascript-compiler.js#L10)
+
+**Example:**
+```coffeescript
+exports.config =
+  ...
+  plugins:
+    handlebars:
+      overrides: (handlebars) ->
+        handlebars.JavaScriptCompiler::nameLookup = (parent, name, type) ->
+          # Your custom nameLookup method.
+```
+
 ## License
 
 The MIT License (MIT)

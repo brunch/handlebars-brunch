@@ -9,7 +9,7 @@ module.exports = class HandlebarsCompiler
   pattern: /\.(?:hbs|handlebars)$/
 
   constructor: (@config) ->
-    null
+    @config.plugins?.handlebars?.overrides?(handlebars)
 
   compile: (data, path, callback) ->
     try

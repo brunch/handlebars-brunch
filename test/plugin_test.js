@@ -25,4 +25,28 @@ describe('Plugin', function() {
       done();
     });
   });
+
+  describe('global namespace', function() {
+    beforeEach(function() {
+      plugin = new Plugin({
+        plugins: {
+          handlebars: {
+            namespace: 'JST'
+          }
+        }
+      });
+    });
+
+    it('should be object', function(done) {
+      var content = '<p>{{a}}</p>';
+      var expected = '<p>hello</p>';
+
+      plugin.compile(content, 'templates/hello.hbs', function(error, data) {
+        expect(error).not.to.be.ok;
+        eval(data);
+        expect(JST['hello']({ a: 'hello'})).to.equal(expected);
+        done();
+      });
+    });
+  });
 });

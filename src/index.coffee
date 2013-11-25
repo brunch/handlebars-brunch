@@ -9,11 +9,21 @@ module.exports = class HandlebarsCompiler
   pattern: /\.(?:hbs|handlebars)$/
 
   constructor: (@config) ->
-    @config.plugins?.handlebars?.overrides?(handlebars)
+    handlebarsConfig = @config.plugins?.handlebars
+    if handlebarsConfig
+      handlebarsConfig.overrides?(handlebars)
+      @namespace = handlebarsConfig.namespace
 
   compile: (data, path, callback) ->
     try
-      result = umd "Handlebars.template(#{handlebars.precompile data})"
+      source = "Handlebars.template(#{handlebars.precompile data})"
+      result = 
+        if @namespace
+          ns = @namespace
+          key = path.replace(/^.*templates\//, '').replace(/\..+?$/, '')
+          "if (typeof #{ns} === 'undefined'){ #{ns} = {} }; #{ns}['#{key}'] = #{source}"
+        else
+          umd source
     catch err
       error = err
     finally

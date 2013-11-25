@@ -9,7 +9,8 @@ module.exports = class HandlebarsCompiler
   pattern: /\.(?:hbs|handlebars)$/
 
   constructor: (@config) ->
-    if handlebarsConfig = @config.plugins?.handlebars
+    handlebarsConfig = @config.plugins?.handlebars
+    if handlebarsConfig
       handlebarsConfig.overrides?(handlebars)
       @namespace = handlebarsConfig.namespace
 
@@ -17,7 +18,8 @@ module.exports = class HandlebarsCompiler
     try
       source = "Handlebars.template(#{handlebars.precompile data})"
       result = 
-        if ns = @namespace
+        if @namespace
+          ns = @namespace
           key = path.replace(/^.*templates\//, '').replace(/\..+?$/, '')
           "if (typeof #{ns} === 'undefined'){ #{ns} = {} }; #{ns}['#{key}'] = #{source}"
         else

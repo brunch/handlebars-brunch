@@ -1,3 +1,6 @@
+# handlebars-brunch 1.7.3 (16 December 2013)
+* Updated handlebars to 1.1.
+
 # handlebars-brunch 1.7.2 (15 July 2013)
 * Fixed compilation bug.
 

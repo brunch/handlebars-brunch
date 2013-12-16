@@ -1,3 +1,5 @@
+var expect = require('chai').expect;
+var Plugin = require('./');
 var Handlebars = require('handlebars');
 
 describe('Plugin', function() {

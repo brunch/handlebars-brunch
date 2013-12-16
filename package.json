@@ -8,13 +8,11 @@
     "type": "git",
     "url": "git@github.com:brunch/handlebars-brunch.git"
   },
-  "main": "./lib/index",
   "scripts": {
-    "prepublish": "rm -rf lib && coffee --bare --output lib/ src/",
-    "test": "node_modules/.bin/mocha --require test/common.js"
+    "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
-    "handlebars": "1.0.12",
+    "handlebars": "1.1.2",
     "umd-wrapper": "~0.1.0"
   },
   "devDependencies": {

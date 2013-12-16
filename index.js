@@ -29,6 +29,8 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   return callback(null, result);
 };
 
-HandlebarsCompiler.prototype.include = [sysPath.join(__dirname, '..', 'vendor', 'handlebars.runtime.js')];
+HandlebarsCompiler.prototype.include = [
+  sysPath.join(__dirname, 'runtime.js')
+];
 
 module.exports = HandlebarsCompiler;

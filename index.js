@@ -24,7 +24,7 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   try {
     source = "Handlebars.template(" + (handlebars.precompile(data)) + ")";
     result = this.namespace ? (ns = this.namespace, key = path.replace(this.pathReplace, '').replace(/\..+?$/, ''), "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source) : umd(source);
- } catch (_error) {
+  } catch (_error) {
     error = _error;
   }
   if (error) return callback(error);

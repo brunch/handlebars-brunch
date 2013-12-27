@@ -12,7 +12,7 @@
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {
-    "handlebars": "1.1.2",
+    "handlebars": "~1.2.1",
     "umd-wrapper": "~0.1.0"
   },
   "devDependencies": {

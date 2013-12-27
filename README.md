@@ -18,6 +18,10 @@ config file (such as `brunch-config.coffee`):
 
 * __overrides__: _(Function)_ no default
     * This function will receive the `handlebars` object which you can use to override [Handlebar's public API](https://github.com/wycats/handlebars.js/blob/7f6ef1dd38794f12aee33c76c04f604a7651810b/lib/handlebars/compiler/javascript-compiler.js#L10)
+* __include__: _(Object)_ Handlebars javascript include file options.
+    * __runtime__: _(Boolean)_ Runtime if true or full compiler if false. Default `true`
+    * __amd__: _(Boolean)_ If true, include the AMD version of the handlebars file. Default `false`
+    * __enabled__: _(Boolean)_ If false, do not automatically include any handlebars file. Default `true`
 
 **Example:**
 ```coffeescript
@@ -28,6 +32,8 @@ exports.config =
       overrides: (handlebars) ->
         handlebars.JavaScriptCompiler::nameLookup = (parent, name, type) ->
           # Your custom nameLookup method.
+      include:
+        runtime: false # include the full compiler javascript
 ```
 
 ## License

@@ -22,6 +22,7 @@ config file (such as `brunch-config.coffee`):
     * __runtime__: _(Boolean)_ Runtime if true or full compiler if false. Default `true`
     * __amd__: _(Boolean)_ If true, include the AMD version of the handlebars file. Default `false`
     * __enabled__: _(Boolean)_ If false, do not automatically include any handlebars file. Default `true`
+* __pathReplace__: _(RegExp)_ Sets the regular expression applied against the source file path to create the module name. Matched characters are removed. Default `/^.*templates\//`
 
 **Example:**
 ```coffeescript
@@ -34,6 +35,7 @@ exports.config =
           # Your custom nameLookup method.
       include:
         runtime: false # include the full compiler javascript
+      pathReplace: /0^/ # match nothing, use full file path for module name
 ```
 
 ## License

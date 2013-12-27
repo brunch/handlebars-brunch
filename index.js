@@ -32,7 +32,7 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
 };
 
 HandlebarsCompiler.prototype.include = [
-  sysPath.join(__dirname, 'runtime.js')
+  sysPath.join(__dirname, 'node_modules', 'handlebars', 'dist', 'handlebars.runtime.js')
 ];
 
 module.exports = HandlebarsCompiler;

@@ -18,6 +18,10 @@ function HandlebarsCompiler(cfg) {
 
 HandlebarsCompiler.prototype.setInclude = function() {
   var include = this.includeSettings || {};
+  if (include.enabled === false) {
+    delete HandlebarsCompiler.prototype.include;
+    return;
+  }
   var includeFile = 'handlebars';
   if (include.runtime || include.runtime == null) includeFile += '.runtime';
   if (include.amd) includeFile += '.amd';

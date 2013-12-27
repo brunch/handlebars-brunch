@@ -4,14 +4,30 @@ var sysPath = require('path');
 
 function HandlebarsCompiler(cfg) {
   if (cfg == null) cfg = {};
+  this.optimize = cfg.optimize;
+  this.includeSettings = {};
   var config = cfg.plugins && cfg.plugins.handlebars;
   if (config) {
     var overrides = config.overrides;
     if (typeof overrides === 'function') overrides(handlebars);
     this.namespace = config.namespace;
     this.pathReplace = config.pathReplace || this.pathReplace;
+    if (config.include) this.includeSettings = config.include;
   }
+  this.setInclude();
 }
+
+HandlebarsCompiler.prototype.setInclude = function() {
+  var include = this.includeSettings;
+  var includeFile = 'handlebars';
+  if (include.runtime || include.runtime == null ) this.includeFile += '.runtime';
+  if (include.amd) this.includeFile += '.amd';
+  if (this.optimize) this.includeFile += '.min';
+  includeFile += '.js';
+  HandlebarsCompiler.prototype.include = [
+    sysPath.join(__dirname, 'node_modules', 'handlebars', 'dist', includeFile)
+  ];
+};
 
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
@@ -30,9 +46,5 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   if (error) return callback(error);
   return callback(null, result);
 };
-
-HandlebarsCompiler.prototype.include = [
-  sysPath.join(__dirname, 'node_modules', 'handlebars', 'dist', 'handlebars.runtime.js')
-];
 
 module.exports = HandlebarsCompiler;

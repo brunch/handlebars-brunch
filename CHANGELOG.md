@@ -1,5 +1,9 @@
+# handlebars-brunch 1.7.6 (27 December 2013)
+* Added options for changing the handlebars js include file
+
 # handlebars-brunch 1.7.5 (27 December 2013)
 * Upgrade handlebars to 1.2.x
+* Added option to override path replace regex for modules
 
 # handlebars-brunch 1.7.4 (16 December 2013)
 * Fixed inclusion bug.

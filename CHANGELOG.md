@@ -1,3 +1,6 @@
+# handlebars-brunch 1.7.7 (22 January 2014)
+* Updated handlebars to 1.3
+
 # handlebars-brunch 1.7.6 (27 December 2013)
 * Added options for changing the handlebars js include file
 

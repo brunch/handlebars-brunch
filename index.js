@@ -42,7 +42,13 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   var error, key, ns, result, source;
   try {
     source = "Handlebars.template(" + (handlebars.precompile(data)) + ")";
-    result = this.namespace ? (ns = this.namespace, key = path.replace(this.pathReplace, '').replace(/\..+?$/, ''), "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source) : umd(source);
+    if (this.namespace) {
+      ns = this.namespace;
+      key = path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '');
+      result = "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source;
+    } else {
+      result = umd(source);
+    }
   } catch (_error) {
     error = _error;
   }

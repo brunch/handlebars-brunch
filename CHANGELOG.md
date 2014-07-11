@@ -1,3 +1,6 @@
+# handlebars-brunch 1.7.8 (11 July 2014)
+* Ensure template keys use forward-slashes on win32
+
 # handlebars-brunch 1.7.7 (22 January 2014)
 * Updated handlebars to 1.3
 

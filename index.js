@@ -56,7 +56,7 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
 
     if (ns) {
       key = path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '');
-      result = "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source;
+      result = ns + " = " + ns + " || {}; " + ns + "['" + key + "'] = " + source;
     } else {
       result = umd(source);
     }

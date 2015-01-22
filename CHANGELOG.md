@@ -1,3 +1,7 @@
+# handlebars-brunch 1.8.0 (22 January 2015)
+* Upgrade handlebars to ^2.0.0
+* Strip leading/trailing whitespace on optimize
+
 # handlebars-brunch 1.7.8 (11 July 2014)
 * Ensure template keys use forward-slashes on win32
 

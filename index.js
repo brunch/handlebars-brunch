@@ -38,11 +38,6 @@ HandlebarsCompiler.prototype.extension = 'hbs';
 HandlebarsCompiler.prototype.pattern = /\.(?:hbs|handlebars)$/;
 HandlebarsCompiler.prototype.pathReplace = /^.*templates\//;
 
-HandlebarsCompiler.prototype.isFunction = function (functionToCheck) {
-  var getType = {};
-  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-};
-
 HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   if (this.optimize) {
     data = data.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
@@ -53,10 +48,11 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   try {
     source = "Handlebars.template(" + (handlebars.precompile(data)) + ")";
 
-    if(this.isFunction(this.namespace))
+    if (typeof this.namespace === 'function') {
       ns = this.namespace(path);
-    else
+    } else {
       ns = this.namespace;
+    }
 
     if (ns) {
       key = path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '');

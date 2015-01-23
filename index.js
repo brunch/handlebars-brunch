@@ -47,8 +47,14 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   var error, key, ns, result, source;
   try {
     source = "Handlebars.template(" + (handlebars.precompile(data)) + ")";
-    if (this.namespace) {
+
+    if (typeof this.namespace === 'function') {
+      ns = this.namespace(path);
+    } else {
       ns = this.namespace;
+    }
+
+    if (ns) {
       key = path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '');
       result = "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source;
     } else {

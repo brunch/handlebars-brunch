@@ -28,7 +28,7 @@ describe('Plugin', function() {
     });
   });
 
-  describe('global namespace', function() {
+  describe('global namespace as a string', function() {
     beforeEach(function() {
       plugin = new Plugin({
         plugins: {
@@ -45,9 +45,34 @@ describe('Plugin', function() {
 
       plugin.compile(content, 'templates/hello.hbs', function(error, data) {
         expect(error).not.to.be.ok;
-
         eval(data);
         expect(JST['hello']({ a: 'hello'})).to.equal(expected);
+        done();
+      });
+    });
+  });
+  
+  describe('global namespace as a function', function() {
+    beforeEach(function() {
+      plugin = new Plugin({
+        plugins: {
+          handlebars: {
+            namespace: function (filePath) {
+				return 'test_templates'; 
+			}
+          }
+        }
+      });
+    });
+
+    it('should be object', function(done) {
+      var content = '<p>{{a}}</p>';
+      var expected = '<p>hello</p>';
+
+      plugin.compile(content, 'templates/hello', function(error, data) {
+        expect(error).not.to.be.ok;
+        eval(data);
+        expect(test_templates['hello']({ a: 'hello'})).to.equal(expected);
         done();
       });
     });

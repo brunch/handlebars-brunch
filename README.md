@@ -23,6 +23,7 @@ config file (such as `brunch-config.coffee`):
     * __amd__: _(Boolean)_ If true, include the AMD version of the handlebars file. Default `false`
     * __enabled__: _(Boolean)_ If false, do not automatically include any handlebars file. Default `true`
 * __pathReplace__: _(RegExp)_ Sets the regular expression applied against the source file path to create the module name. Matched characters are removed. Default `/^.*templates\//`
+* __namespace__: _(String or Function)_ Defines a global namespace to bind templates to. If a function is provided, the path of each source file is provided as an argument and the function should return a string specifying the namespace that template should be attached to. Segmented namespaces such as `JST.Templates` are supported. No default.
 
 **Example:**
 ```coffeescript

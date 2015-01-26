@@ -33,7 +33,7 @@ describe('Plugin', function() {
       plugin = new Plugin({
         plugins: {
           handlebars: {
-            namespace: 'JST'
+            namespace: 'JST.Sub'
           }
         }
       });
@@ -46,7 +46,7 @@ describe('Plugin', function() {
       plugin.compile(content, 'templates/hello.hbs', function(error, data) {
         expect(error).not.to.be.ok;
         eval(data);
-        expect(JST['hello']({ a: 'hello'})).to.equal(expected);
+        expect(JST.Sub['hello']({ a: 'hello'})).to.equal(expected);
         done();
       });
     });

@@ -38,13 +38,15 @@ HandlebarsCompiler.prototype.extension = 'hbs';
 HandlebarsCompiler.prototype.pattern = /\.(?:hbs|handlebars)$/;
 HandlebarsCompiler.prototype.pathReplace = /^.*templates\//;
 
+HandlebarsCompiler.prototype.inited = false;
+
 HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   if (this.optimize) {
     data = data.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
     data = data.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
   }
 
-  var error, key, ns, result, source;
+  var error, key, ns, result, source, header;
   try {
     source = "Handlebars.template(" + (handlebars.precompile(data)) + ")";
 
@@ -55,8 +57,13 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
     }
 
     if (ns) {
-      key = path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '');
-      result = "if (typeof " + ns + " === 'undefined'){ " + ns + " = {} }; " + ns + "['" + key + "'] = " + source;
+      header = '';
+      if(!this.inited) {
+        header = "Handlebars.initNS = function(ns, obj) { var global = (function () { return this;})(), levels = ns.split('.'), first = levels.shift(); obj = obj || global; obj[first] = obj[first] || {}; if (levels.length) { Handlebars.initNS(levels.join('.'), obj[first]); } return obj[first]; }; \n";
+        this.inited = true;
+      }
+      key = ns + '.' + path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g,'.');
+      result = header + "Handlebars.initNS( '" + key + "' ); " + key + " = " + source;
     } else {
       result = umd(source);
     }

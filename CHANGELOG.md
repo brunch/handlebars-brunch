@@ -1,3 +1,7 @@
+# handlebars-brunch 1.9.0 (26 January 2015)
+* Expand `namespace` option to allow definition via function as well as adding
+  support for segmented namespaces.
+
 # handlebars-brunch 1.8.0 (22 January 2015)
 * Upgrade handlebars to ^2.0.0
 * Strip leading/trailing whitespace on optimize

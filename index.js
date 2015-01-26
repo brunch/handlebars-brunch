@@ -59,11 +59,11 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
     if (ns) {
       header = '';
       if(!this.inited) {
-        header = "function initNS(ns, obj) { var global = (function () { return this;})(), levels = ns.split('.'), first = levels.shift(); obj = obj || global; obj[first] = obj[first] || {}; if (levels.length) { initNS(levels.join('.'), obj[first]); } return obj[first]; }; \n";
+        header = "Handlebars.initNS = function(ns, obj) { var global = (function () { return this;})(), levels = ns.split('.'), first = levels.shift(); obj = obj || global; obj[first] = obj[first] || {}; if (levels.length) { Handlebars.initNS(levels.join('.'), obj[first]); } return obj[first]; }; \n";
         this.inited = true;
       }
       key = ns + '.' + path.replace(/\\/g,'/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g,'.');
-      result = header + "initNS( '" + key + "' ); " + key + " = " + source;
+      result = header + "Handlebars.initNS( '" + key + "' ); " + key + " = " + source;
     } else {
       result = umd(source);
     }

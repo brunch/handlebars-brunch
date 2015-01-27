@@ -39,6 +39,7 @@ HandlebarsCompiler.prototype.pattern = /\.(?:hbs|handlebars)$/;
 HandlebarsCompiler.prototype.pathReplace = /^.*templates\//;
 
 HandlebarsCompiler.prototype.inited = false;
+HandlebarsCompiler.prototype.header = '';
 
 HandlebarsCompiler.prototype.compile = function(data, path, callback) {
   if (this.optimize) {
@@ -58,7 +59,8 @@ HandlebarsCompiler.prototype.compile = function(data, path, callback) {
 
     if (ns) {
       header = '';
-      if(!this.inited) {
+      if(!this.inited || path === this.header) {
+        this.header = path;
         header = "Handlebars.initNS = function(ns, obj) { var global = (function () { return this;})(), levels = ns.split('.'), first = levels.shift(); obj = obj || global; obj[first] = obj[first] || {}; if (levels.length) { Handlebars.initNS(levels.join('.'), obj[first]); } return obj[first]; }; \n";
         this.inited = true;
       }

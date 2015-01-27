@@ -1,3 +1,6 @@
+# handlebars-brunch 1.9.1 (27 January 2015)
+* Improved (and fixed issues with) architecture for `namespace`
+
 # handlebars-brunch 1.9.0 (26 January 2015)
 * Expand `namespace` option to allow definition via function as well as adding
   support for segmented namespaces.

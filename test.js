@@ -1,6 +1,8 @@
 var expect = require('chai').expect;
 var Plugin = require('./');
 var Handlebars = require('handlebars');
+global.Handlebars = Handlebars;
+require('./ns');
 
 describe('Plugin', function() {
   var plugin;

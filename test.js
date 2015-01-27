@@ -1,12 +1,8 @@
 var expect = require('chai').expect;
 var Plugin = require('./');
 var Handlebars = require('handlebars');
-var sysPath = require('path');
-var sysFile = require('fs');
- 
-var nsPath = sysPath.join(__dirname, 'ns.js'); 
-var nsFile = sysFile.readFileSync(nsPath, {encoding : 'utf8' });
-eval(nsFile);
+global.Handlebars = Handlebars;
+require('./ns');
 
 describe('Plugin', function() {
   var plugin;

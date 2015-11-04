@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var Plugin = require('./');
 var Handlebars = require('handlebars');
 global.Handlebars = Handlebars;
+global.document = {};
 require('./ns');
 
 describe('Plugin', function() {

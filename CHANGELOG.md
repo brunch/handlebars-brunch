@@ -1,3 +1,6 @@
+# handlebars-brunch 1.10.0 (12 November 2015)
+* Compatibility with npm@3 for include files (handlebars runtime)
+
 # handlebars-brunch 1.9.1 (27 January 2015)
 * Improved (and fixed issues with) architecture for `namespace`
 

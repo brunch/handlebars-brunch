@@ -1,3 +1,6 @@
+# handlebars-brunch 1.10.1 (12 November 2015)
+* Add license field to package.json
+
 # handlebars-brunch 1.10.0 (12 November 2015)
 * Compatibility with npm@3 for include files (handlebars runtime)
 

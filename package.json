@@ -8,8 +8,8 @@
     "type": "git",
     "url": "git@github.com:brunch/handlebars-brunch.git"
   },
-  "postinstall": "node ./postinstall.js",
   "scripts": {
+    "postinstall": "node ./postinstall.js",
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {

@@ -9,6 +9,7 @@
     "url": "git@github.com:brunch/handlebars-brunch.git"
   },
   "scripts": {
+    "postinstall": "node ./postinstall.js",
     "test": "node_modules/.bin/mocha"
   },
   "dependencies": {

@@ -29,7 +29,7 @@ HandlebarsCompiler.prototype.setInclude = function() {
   if (this.optimize) includeFile += '.min';
   includeFile += '.js';
   HandlebarsCompiler.prototype.include = [
-    sysPath.join(__dirname, 'node_modules', 'handlebars', 'dist', includeFile),
+    sysPath.join(__dirname, 'dist', includeFile),
     sysPath.join(__dirname, 'ns.js')
   ];
 };

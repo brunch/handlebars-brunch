@@ -4,6 +4,7 @@
   "description": "Adds Handlebars.js support to brunch.",
   "author": "Paul Miller (http://paulmillr.com/)",
   "homepage": "https://github.com/brunch/handlebars-brunch",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:brunch/handlebars-brunch.git"

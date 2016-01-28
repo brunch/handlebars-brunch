@@ -23,11 +23,10 @@ describe('Plugin', function() {
     var content = '<strong>{{weak}}</strong>';
     var expected = '<strong>wat</strong>';
 
-    plugin.compile(content, 'template.handlebars', function(error, data) {
-      expect(error).not.to.be.ok;
+    plugin.compile({data: content, path: 'template.handlebars'}).then(data => {
       expect(eval(data)({weak: 'wat'})).to.equal(expected);
       done();
-    });
+    }, error => expect(error).not.to.be.ok);
   });
 
   describe('global namespace as a string', function() {
@@ -45,15 +44,14 @@ describe('Plugin', function() {
       var content = '<p>{{a}}</p>';
       var expected = '<p>hello</p>';
 
-      plugin.compile(content, 'templates/hello.hbs', function(error, data) {
-        expect(error).not.to.be.ok;
+      plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
         eval(data);
         expect(JST.Sub['hello']({ a: 'hello'})).to.equal(expected);
         done();
-      });
+      }, error => expect(error).not.to.be.ok);
     });
   });
-  
+
   describe('global namespace as a function', function() {
     beforeEach(function() {
       plugin = new Plugin({
@@ -71,12 +69,11 @@ describe('Plugin', function() {
       var content = '<p>{{a}}</p>';
       var expected = '<p>hello</p>';
 
-      plugin.compile(content, 'templates/hello', function(error, data) {
-        expect(error).not.to.be.ok;
+      plugin.compile({data: content, path: 'templates/hello'}).then(data => {
         eval(data);
         expect(test_templates['hello']({ a: 'hello'})).to.equal(expected);
         done();
-      });
+      }, error => expect(error).not.to.be.ok);
     });
   });
 });

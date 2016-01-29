@@ -36,7 +36,7 @@ class HandlebarsCompiler {
   }
 
   compile(params) {
-    const data = params.data;
+    let data = params.data;
     const path = params.path;
 
     if (this.optimize) {

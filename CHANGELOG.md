@@ -1,3 +1,6 @@
+# handlebars-brunch 2.0.0 (Jan 29, 2016)
+* Updated source code & API. The plugin would now only work with Brunch 2.2 and higher.
+
 # handlebars-brunch 1.10.1 (12 November 2015)
 * Add license field to package.json
 

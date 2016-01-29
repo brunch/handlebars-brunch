@@ -14,7 +14,7 @@ runtime.forEach(function(r) {
     min.forEach(function(m) {
       var fileName = 'handlebars' + r + a + m + '.js';
       var absFilePath = sysPath.join(sysPath.dirname( require.resolve('handlebars')), '..', 'dist', fileName);
-      fs.symlinkSync(absFilePath, sysPath.join(__dirname, 'dist', fileName));
+      fs.createReadStream(absFilePath).pipe(fs.createWriteStream(sysPath.join(__dirname, 'dist', fileName)));
     });
   });
 });

@@ -7,6 +7,12 @@ var fs = require('fs');
 
 var dist = sysPath.join(__dirname, 'dist');
 
+process.on('uncaughtException', function (e) {
+  if (e.code == 'MODULE_NOT_FOUND') {
+    console.log('You need to have handlebars installed for the handlebars-brunch plugin');
+  }
+})
+
 if (!fs.existsSync(dist)) {
   fs.mkdirSync(dist);
 }
@@ -26,4 +32,3 @@ runtime.forEach(function(r) {
     });
   });
 });
-

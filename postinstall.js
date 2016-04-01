@@ -9,7 +9,7 @@ var dist = sysPath.join(__dirname, 'dist');
 
 process.on('uncaughtException', function (e) {
   if (e.code == 'MODULE_NOT_FOUND') {
-    console.log('You need to have handlebars installed for the handlebars-brunch plugin');
+    console.log('\x1b[31m', 'You need to have handlebars installed for the handlebars-brunch plugin' ,'\x1b[0m');
   }
 })
 

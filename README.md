@@ -3,7 +3,7 @@ Adds [Handlebars](http://handlebarsjs.com/) support to
 [brunch](http://brunch.io).
 
 ## Usage
-Install the plugin via npm with `npm install --save handlebars-brunch`.
+Install the plugin via npm with `npm install --save-dev handlebars-brunch`.
 
 Or, do manual install:
 

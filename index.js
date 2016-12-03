@@ -70,8 +70,7 @@ class HandlebarsCompiler {
 
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
-HandlebarsCompiler.prototype.extension = 'hbs';
-HandlebarsCompiler.prototype.pattern = /\.(?:hbs|handlebars)$/;
+HandlebarsCompiler.prototype.pattern = /\.(hbs|handlebars)$/;
 HandlebarsCompiler.prototype.pathReplace = /^.*templates\//;
 
 module.exports = HandlebarsCompiler;

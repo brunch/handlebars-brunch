@@ -11,7 +11,7 @@
   },
   "scripts": {
     "postinstall": "node ./postinstall.js",
-    "test": "node_modules/.bin/eslint index.js && node_modules/.bin/mocha"
+    "test": "eslint index.js && mocha"
   },
   "dependencies": {
     "handlebars": ">=2.0.0 <5.0.0",

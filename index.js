@@ -7,22 +7,18 @@ const sysPath = require('path');
 class HandlebarsCompiler {
   constructor(cfg) {
     this.optimize = cfg.optimize;
-    const config = cfg.plugins && cfg.plugins.handlebars || {};
+    const config = cfg.plugins.handlebars || {};
     const overrides = config.overrides;
     if (typeof overrides === 'function') overrides(handlebars);
-    this.namespace = config.namespace;
+    this.namespace = (typeof config.namespace === 'function') ? config.namespace : () => config.namespace;
     this.pathReplace = config.pathReplace || this.pathReplace;
-    this.include = config.include;
-  }
-
-  set include(value) {
-    return value || {};
+    this.includeSettings = config.include;
   }
 
   get include() {
     let includeFile = 'handlebars';
-    if (this.include.runtime || this.include.runtime == null) includeFile += '.runtime';
-    if (this.include.amd) includeFile += '.amd';
+    if (this.includeSettings.runtime || this.includeSettings.runtime == null) includeFile += '.runtime';
+    if (this.includeSettings.amd) includeFile += '.amd';
     if (this.optimize) includeFile += '.min';
     includeFile += '.js';
     return [
@@ -43,7 +39,7 @@ class HandlebarsCompiler {
     let result;
     try {
       const source = `Handlebars.template(${handlebars.precompile(data)})`;
-      const ns = (typeof this.namespace === 'function') ? this.namespace(path) : this.namespace;
+      const ns = this.namespace(path);
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');

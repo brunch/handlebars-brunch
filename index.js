@@ -10,17 +10,21 @@ class HandlebarsCompiler {
     const config = cfg.plugins.handlebars || {};
     const overrides = config.overrides;
     if (typeof overrides === 'function') overrides(handlebars);
-    this.namespace = (typeof config.namespace === 'function') ? config.namespace : () => config.namespace;
-    this.pathReplace = config.pathReplace || this.pathReplace;
-    this.includeSettings = config.include;
+
+    const ns = config.namespace;
+    this.namespace = typeof ns === 'function' ? ns : () => ns;
+    this.pathReplace = config.pathReplace || /^.*templates\//;
+    this.includeSettings = config.include || {};
   }
 
   get include() {
     let includeFile = 'handlebars';
-    if (this.includeSettings.runtime || this.includeSettings.runtime == null) includeFile += '.runtime';
-    if (this.includeSettings.amd) includeFile += '.amd';
+    const include = this.includeSettings;
+    if (include.runtime !== false) includeFile += '.runtime';
+    if (include.amd) includeFile += '.amd';
     if (this.optimize) includeFile += '.min';
     includeFile += '.js';
+
     return [
       sysPath.join(__dirname, 'dist', includeFile),
       sysPath.join(__dirname, 'ns.js')
@@ -57,6 +61,5 @@ class HandlebarsCompiler {
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
 HandlebarsCompiler.prototype.pattern = /\.(hbs|handlebars)$/;
-HandlebarsCompiler.prototype.pathReplace = /^.*templates\//;
 
 module.exports = HandlebarsCompiler;

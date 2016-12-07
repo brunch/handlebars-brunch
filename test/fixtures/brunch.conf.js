@@ -1,4 +1,4 @@
-module.exports.runtimeTrue = {
+exports.runtimeTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -8,7 +8,7 @@ module.exports.runtimeTrue = {
   }
 };
 
-module.exports.runtimeFalse = {
+exports.runtimeFalse = {
   plugins: {
     handlebars: {
       include: {
@@ -18,7 +18,7 @@ module.exports.runtimeFalse = {
   }
 };
 
-module.exports.runtimeFalseOptimizedTrue = {
+exports.runtimeFalseOptimizedTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -29,7 +29,7 @@ module.exports.runtimeFalseOptimizedTrue = {
   optimize: true
 };
 
-module.exports.runtimeTrueAmdTrue = {
+exports.runtimeTrueAmdTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -40,7 +40,7 @@ module.exports.runtimeTrueAmdTrue = {
   }
 };
 
-module.exports.runtimeTrueOptimizeTrue = {
+exports.runtimeTrueOptimizeTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -51,7 +51,7 @@ module.exports.runtimeTrueOptimizeTrue = {
   optimize: true
 };
 
-module.exports.runtimeTrueAmdTrueOptimizeTrue = {
+exports.runtimeTrueAmdTrueOptimizeTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -63,7 +63,7 @@ module.exports.runtimeTrueAmdTrueOptimizeTrue = {
   optimize: true
 };
 
-module.exports.runtimeTrueAmdTrue = {
+exports.runtimeTrueAmdTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -74,7 +74,7 @@ module.exports.runtimeTrueAmdTrue = {
   }
 };
 
-module.exports.amdTrue = {
+exports.amdTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -85,7 +85,7 @@ module.exports.amdTrue = {
   }
 };
 
-module.exports.amdTrueOptimizeTrue = {
+exports.amdTrueOptimizeTrue = {
   plugins: {
     handlebars: {
       include: {
@@ -97,7 +97,7 @@ module.exports.amdTrueOptimizeTrue = {
   optimize: true
 };
 
-module.exports.amdFalse = {
+exports.amdFalse = {
   plugins: {
     handlebars: {
       include: {
@@ -107,4 +107,3 @@ module.exports.amdFalse = {
     }
   }
 };
-

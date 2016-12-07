@@ -19,11 +19,11 @@ describe('Plugin', () => {
   });
 
   it('should be an object', () => {
-    expect(plugin).to.be.ok;
+    expect(plugin).to.be.an('object');
   });
 
   it('should has #compile method', () => {
-    expect(plugin.compile).to.be.an.instanceof(Function);
+    expect(plugin).to.respondTo('compile');
   });
 
   describe('include runtime options', () => {
@@ -133,16 +133,15 @@ describe('Plugin', () => {
       });
     });
 
-    it('should be object', done => {
+    it('should be object', () => {
       const content = '<p>{{a}}</p>';
       const expected = '<p>hello</p>';
 
-      plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
+      return plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
         eval(data);
         console.log(JST.Sub['hello']({ a: 'hello'}));
         expect(JST.Sub['hello']({ a: 'hello'})).to.equal(expected);
-        done();
-      }, error => expect(error).not.to.be.ok);
+      });
     });
   });
 
@@ -151,23 +150,20 @@ describe('Plugin', () => {
       plugin = new Plugin({
         plugins: {
           handlebars: {
-            namespace: function (filePath) {
-              return 'test_templates';
-            }
+            namespace: filePath => 'test_templates'
           }
         }
       });
     });
 
-    it('should be object', done => {
+    it('should be object', () => {
       const content = '<p>{{a}}</p>';
       const expected = '<p>hello</p>';
 
-      plugin.compile({data: content, path: 'templates/hello'}).then(data => {
+      return plugin.compile({data: content, path: 'templates/hello'}).then(data => {
         eval(data);
         expect(test_templates['hello']({ a: 'hello'})).to.equal(expected);
-        done();
-      }, error => expect(error).not.to.be.ok);
+      });
     });
   });
 });

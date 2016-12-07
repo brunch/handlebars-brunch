@@ -6,30 +6,22 @@ const sysPath = require('path');
 
 class HandlebarsCompiler {
   constructor(cfg) {
-    if (cfg == null) cfg = {};
     this.optimize = cfg.optimize;
-    const config = cfg.plugins && cfg.plugins.handlebars || {};
+    const config = cfg.plugins.handlebars || {};
     const overrides = config.overrides;
     if (typeof overrides === 'function') overrides(handlebars);
-    this.namespace = config.namespace;
+    this.namespace = (typeof config.namespace === 'function') ? config.namespace : () => config.namespace;
     this.pathReplace = config.pathReplace || this.pathReplace;
-    if (config.include) this.includeSettings = config.include;
-
-    this.setInclude();
+    this.includeSettings = config.include;
   }
 
-  setInclude() {
-    const include = this.includeSettings || {};
-    if (include.enabled === false) {
-      delete HandlebarsCompiler.prototype.include;
-      return;
-    }
+  get include() {
     let includeFile = 'handlebars';
-    if (include.runtime || include.runtime == null) includeFile += '.runtime';
-    if (include.amd) includeFile += '.amd';
+    if (this.includeSettings.runtime || this.includeSettings.runtime == null) includeFile += '.runtime';
+    if (this.includeSettings.amd) includeFile += '.amd';
     if (this.optimize) includeFile += '.min';
     includeFile += '.js';
-    HandlebarsCompiler.prototype.include = [
+    return [
       sysPath.join(__dirname, 'dist', includeFile),
       sysPath.join(__dirname, 'ns.js')
     ];
@@ -47,13 +39,7 @@ class HandlebarsCompiler {
     let result;
     try {
       const source = `Handlebars.template(${handlebars.precompile(data)})`;
-
-      let ns;
-      if (typeof this.namespace === 'function') {
-        ns = this.namespace(path);
-      } else {
-        ns = this.namespace;
-      }
+      const ns = this.namespace(path);
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');

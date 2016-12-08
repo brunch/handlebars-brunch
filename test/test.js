@@ -139,7 +139,6 @@ describe('Plugin', () => {
 
       return plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
         eval(data);
-        console.log(JST.Sub['hello']({ a: 'hello'}));
         expect(JST.Sub['hello']({ a: 'hello'})).to.equal(expected);
       });
     });

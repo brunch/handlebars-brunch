@@ -116,15 +116,6 @@ exports.globalNamespaceString = {
   }
 };
 
-exports.globalNamespaceStringOptimizeTrue = {
-  plugins: {
-    handlebars: {
-      namespace: 'JST.Sub'
-    }
-  },
-  optimize: true
-};
-
 exports.globalNamespaceFunction = {
   plugins: {
     handlebars: {

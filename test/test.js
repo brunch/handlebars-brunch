@@ -122,46 +122,85 @@ describe('Plugin', () => {
     });
   });
 
-  describe('global namespace as a string', () => {
-    beforeEach(() => {
-      plugin = new Plugin({
-        plugins: {
-          handlebars: {
-            namespace: 'JST.Sub'
-          }
-        }
+  describe('compile', () => {
+    describe('when global namespace as a string', () => {
+      beforeEach(() => {
+        plugin = new Plugin(config.globalNamespaceString);
+      });
+
+      it('should be object', () => {
+        const content = '<p>{{a}}</p>';
+        const expected = '<p>hello</p>';
+
+        return plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
+          eval(data);
+          expect(JST.Sub['hello']({a: 'hello'})).to.equal(expected);
+        });
       });
     });
 
-    it('should be object', () => {
-      const content = '<p>{{a}}</p>';
-      const expected = '<p>hello</p>';
+    describe('when global namespace as a function', () => {
+      beforeEach(() => {
+        plugin = new Plugin(config.globalNamespaceFunction);
+      });
 
-      return plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
-        eval(data);
-        expect(JST.Sub['hello']({ a: 'hello'})).to.equal(expected);
+      it('should be object', () => {
+        const content = '<p>{{a}}</p>';
+        const expected = '<p>hello</p>';
+
+        return plugin.compile({data: content, path: 'templates/hello'}).then(data => {
+          eval(data);
+          expect(test_templates['hello']({a: 'hello'})).to.equal(expected);
+        });
       });
     });
   });
 
-  describe('global namespace as a function', () => {
-    beforeEach(() => {
-      plugin = new Plugin({
-        plugins: {
-          handlebars: {
-            namespace: filePath => 'test_templates'
-          }
-        }
+  describe('compileStatic', () => {
+
+    it('should compile static assets with data', () => {
+      const expected = '<!DOCTYPE html>' +
+        '<html>' +
+        '  <head>' +
+        '    <title>Brunch is awesome!</title>' +
+        '  </head>' +
+        '  <body>' +
+        '  </body>' +
+        '</html>';
+      const content = '<!DOCTYPE html>' +
+        '<html>' +
+        '  <head>' +
+        '    <title>{{title}}</title>' +
+        '  </head>' +
+        '  <body>' +
+        '  </body>' +
+        '</html>';
+
+      return plugin.compileStatic({data: content}).then(data => {
+        expect(eval(data)({title: 'Brunch is awesome!'})).to.equal(expected);
       });
     });
 
-    it('should be object', () => {
-      const content = '<p>{{a}}</p>';
-      const expected = '<p>hello</p>';
+    it('should compile static assets without data', () => {
+      const expected = '<!DOCTYPE html>' +
+        '<html>' +
+        '  <head>' +
+        '    <title>Brunch is awesome!</title>' +
+        '  </head>' +
+        '  <body>' +
+        '  </body>' +
+        '</html>';
+      const content = '<!DOCTYPE html>' +
+        '<html>' +
+        '  <head>' +
+        '    <title>Brunch is awesome!</title>' +
+        '  </head>' +
+        '  <body>' +
+        '  </body>' +
+        '</html>';
 
-      return plugin.compile({data: content, path: 'templates/hello'}).then(data => {
-        eval(data);
-        expect(test_templates['hello']({ a: 'hello'})).to.equal(expected);
+      return plugin.compileStatic({data: content}).then(data => {
+        expect(eval(data)()).to.equal(expected);
       });
     });
   });

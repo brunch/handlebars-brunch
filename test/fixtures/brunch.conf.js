@@ -107,3 +107,28 @@ exports.amdFalse = {
     }
   }
 };
+
+exports.globalNamespaceString = {
+  plugins: {
+    handlebars: {
+      namespace: 'JST.Sub'
+    }
+  }
+};
+
+exports.globalNamespaceStringOptimizeTrue = {
+  plugins: {
+    handlebars: {
+      namespace: 'JST.Sub'
+    }
+  },
+  optimize: true
+};
+
+exports.globalNamespaceFunction = {
+  plugins: {
+    handlebars: {
+      namespace: filePath => 'test_templates'
+    }
+  }
+};

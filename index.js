@@ -31,35 +31,59 @@ class HandlebarsCompiler {
     ];
   }
 
-  compile(params) {
-    let data = params.data;
-    const path = params.path;
-
+  set paramsData(value) {
     if (this.optimize) {
-      data = data.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
-      data = data.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
+      this._paramsData = value.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
+      this._paramsData = value.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
     }
+    this._paramsData = value;
+  }
 
-    let result;
+  get paramsData() {
+    return this._paramsData;
+  }
+
+  get source() {
+    return `Handlebars.template(${handlebars.precompile(this.paramsData)})`;
+  }
+
+  compile(params) {
+    const path = params.path;
+    this.paramsData = params.data;
+
     try {
-      const source = `Handlebars.template(${handlebars.precompile(data)})`;
+      let result;
       const ns = this.namespace(path);
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');
-        result = `Handlebars.initNS( '${key}' ); ${key} = ${source}`;
+        result = `Handlebars.initNS( '${key}' ); ${key} = ${this.source}`;
       } else {
-        result = umd(source);
+        result = umd(this.source);
       }
+
+      return Promise.resolve(result);
     } catch (error) {
       return Promise.reject(error);
     }
-    return Promise.resolve(result);
+
+  }
+
+  compileStatic(params) {
+    this.paramsData = params.data;
+
+    try {
+      return Promise.resolve(this.source);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
 HandlebarsCompiler.prototype.pattern = /\.(hbs|handlebars)$/;
+HandlebarsCompiler.prototype.extension = 'hbs';
+HandlebarsCompiler.prototype.staticTargetExtension = 'html';
 
 module.exports = HandlebarsCompiler;

@@ -15,6 +15,7 @@ class HandlebarsCompiler {
     this.namespace = typeof ns === 'function' ? ns : () => ns;
     this.pathReplace = config.pathReplace || /^.*templates\//;
     this.includeSettings = config.include || {};
+    this.staticData = config.staticData || {};
   }
 
   get include() {
@@ -43,10 +44,6 @@ class HandlebarsCompiler {
     return this._paramsData;
   }
 
-  get source() {
-    return `Handlebars.template(${handlebars.precompile(this.paramsData)})`;
-  }
-
   compile(params) {
     const path = params.path;
     this.paramsData = params.data;
@@ -54,10 +51,11 @@ class HandlebarsCompiler {
     try {
       let result;
       const ns = this.namespace(path);
+      const source = `Handlebars.template(${handlebars.precompile(this.paramsData)})`;
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');
-        result = `Handlebars.initNS( '${key}' ); ${key} = ${this.source}`;
+        result = `Handlebars.initNS( '${key}' ); ${key} = ${source}`;
       } else {
         result = umd(this.source);
       }
@@ -73,7 +71,10 @@ class HandlebarsCompiler {
     this.paramsData = params.data;
 
     try {
-      return Promise.resolve(this.source);
+      const template = handlebars.compile(this.paramsData);
+      const source = template(this.staticData);
+
+      return Promise.resolve(source);
     } catch (error) {
       return Promise.reject(error);
     }

@@ -158,6 +158,10 @@ describe('Plugin', () => {
 
   describe('compileStatic', () => {
 
+    beforeEach(() => {
+      plugin = new Plugin(config.compileStaticWitData);
+    });
+
     it('should compile static assets with data', () => {
       const expected = '<!DOCTYPE html>' +
         '<html>' +
@@ -167,7 +171,7 @@ describe('Plugin', () => {
         '  <body>' +
         '  </body>' +
         '</html>';
-      const content = '<!DOCTYPE html>' +
+      const staticContent = '<!DOCTYPE html>' +
         '<html>' +
         '  <head>' +
         '    <title>{{title}}</title>' +
@@ -176,8 +180,8 @@ describe('Plugin', () => {
         '  </body>' +
         '</html>';
 
-      return plugin.compileStatic({data: content}).then(data => {
-        expect(eval(data)({title: 'Brunch is awesome!'})).to.equal(expected);
+      return plugin.compileStatic({data: staticContent}).then(content => {
+        expect(content).to.equal(expected);
       });
     });
 
@@ -190,7 +194,7 @@ describe('Plugin', () => {
         '  <body>' +
         '  </body>' +
         '</html>';
-      const content = '<!DOCTYPE html>' +
+      const staticContent = '<!DOCTYPE html>' +
         '<html>' +
         '  <head>' +
         '    <title>Brunch is awesome!</title>' +
@@ -199,8 +203,8 @@ describe('Plugin', () => {
         '  </body>' +
         '</html>';
 
-      return plugin.compileStatic({data: content}).then(data => {
-        expect(eval(data)()).to.equal(expected);
+      return plugin.compileStatic({data: staticContent}).then(content => {
+        expect(content).to.equal(expected);
       });
     });
   });

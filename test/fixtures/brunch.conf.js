@@ -123,3 +123,13 @@ exports.globalNamespaceFunction = {
     }
   }
 };
+
+exports.compileStaticWitData = {
+  plugins: {
+    handlebars: {
+      staticData: {
+        title: 'Brunch is awesome!'
+      }
+    }
+  }
+};

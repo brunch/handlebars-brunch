@@ -23,19 +23,76 @@ config file (such as `brunch-config.coffee`):
     * __enabled__: _(Boolean)_ Default `true`. If false, do not automatically include any handlebars file.
 * __pathReplace__: _(RegExp)_  Default `/^.*templates\//`. Sets the regular expression applied against the source file path to create the module name. Matched characters are removed.
 * __namespace__: _(String or Function)_ No default. Defines a global namespace to bind templates to. If a function is provided, the path of each source file is provided as an argument and the function should return a string specifying the namespace that template should be attached to. Segmented namespaces such as `JST.Templates` are supported.
+* __staticData__: _(Object)_ `{}`. Data for static templates.
 
-**Example:**
-```coffeescript
-exports.config =
+**Configuration example:**
+```javascript
+exports.config = {
   ...
-  plugins:
-    handlebars:
-      overrides: (handlebars) ->
-        handlebars.JavaScriptCompiler::nameLookup = (parent, name, type) ->
+  plugins: {
+    handlebars: {
+      overrides: handlebars => {
+        handlebars.JavaScriptCompiler::nameLookup = (parent, name, type) => {
           # Your custom nameLookup method.
-      include:
+        }
+      },
+      include: {
         runtime: false # include the full compiler javascript
-      pathReplace: /0^/ # match nothing, use full file path for module name
+      },
+      pathReplace: /0^/, # match nothing, use full file path for module name
+      staticData: {
+        # static data
+      }
+    }
+  }
+}
+```
+
+**Static compilation example**
+
+Put your static content into `app/assets/your_name.hbs`.
+
+Content of file `your_name.hbs`
+```html
+<!DOCTYPE html>
+<html>  
+    <head>    
+    <title>{{title}}</title>  
+</head>  
+<body>  
+</body>
+</html>
+```
+
+In config define `staticData`.
+
+```javascript
+exports.config = {
+  ...
+  plugins: {
+    handlebars: {
+      staticData: {
+        title: 'Brunch is awesome!'
+      }
+    }
+  }
+  ...
+}
+```
+
+Output file content will be placed in `public/your_name.html`
+
+Content of `your_name.html`
+
+```html
+<!DOCTYPE html>
+<html>  
+    <head>    
+    <title>Brunch is awesome!</title>  
+</head>  
+<body>  
+</body>
+</html>
 ```
 
 ## License

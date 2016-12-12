@@ -12,7 +12,7 @@ class HandlebarsCompiler {
     if (typeof overrides === 'function') overrides(handlebars);
 
     const ns = config.namespace;
-    this.namespace = typeof ns === 'function' ? ns : () => ns;
+    this.namespace = typeof ns === 'function' ? ns : path => path;
     this.pathReplace = config.pathReplace || /^.*templates\//;
     this.includeSettings = config.include || {};
     this.staticData = config.staticData || {};
@@ -32,21 +32,9 @@ class HandlebarsCompiler {
     ];
   }
 
-  set paramsData(value) {
-    if (this.optimize) {
-      this._paramsData = value.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
-      this._paramsData = value.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
-    }
-    this._paramsData = value;
-  }
-
-  get paramsData() {
-    return this._paramsData;
-  }
-
-  compile(params) {
-    const path = params.path;
-    this.paramsData = params.data;
+  compile(file) {
+    const path = file.path;
+    const data = file.data;
 
     try {
       let result;
@@ -57,7 +45,7 @@ class HandlebarsCompiler {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');
         result = `Handlebars.initNS( '${key}' ); ${key} = ${source}`;
       } else {
-        result = umd(this.source);
+        result = umd(source);
       }
 
       return Promise.resolve(result);
@@ -67,11 +55,9 @@ class HandlebarsCompiler {
 
   }
 
-  compileStatic(params) {
-    this.paramsData = params.data;
-
+  compileStatic(file) {
     try {
-      const template = handlebars.compile(this.paramsData);
+      const template = handlebars.compile(file.data);
       const source = template(this.staticData);
 
       return Promise.resolve(source);
@@ -84,7 +70,6 @@ class HandlebarsCompiler {
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
 HandlebarsCompiler.prototype.pattern = /\.(hbs|handlebars)$/;
-HandlebarsCompiler.prototype.extension = 'hbs';
 HandlebarsCompiler.prototype.staticTargetExtension = 'html';
 
 module.exports = HandlebarsCompiler;

@@ -12,7 +12,7 @@ class HandlebarsCompiler {
     if (typeof overrides === 'function') overrides(handlebars);
 
     const ns = config.namespace;
-    this.namespace = typeof ns === 'function' ? ns : path => path;
+    this.namespace = typeof ns === 'function' ? ns : () => ns;
     this.pathReplace = config.pathReplace || /^.*templates\//;
     this.includeSettings = config.include || {};
     this.staticData = config.staticData || {};
@@ -39,7 +39,7 @@ class HandlebarsCompiler {
     try {
       let result;
       const ns = this.namespace(path);
-      const source = `Handlebars.template(${handlebars.precompile(this.paramsData)})`;
+      const source = `Handlebars.template(${handlebars.precompile(data)})`;
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');

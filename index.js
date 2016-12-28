@@ -15,7 +15,7 @@ class HandlebarsCompiler {
     this.namespace = typeof ns === 'function' ? ns : () => ns;
     this.pathReplace = config.pathReplace || /^.*templates\//;
     this.includeSettings = config.include || {};
-    this.staticData = config.staticData || {};
+    this.locals = config.locals || {};
   }
 
   get include() {
@@ -34,7 +34,12 @@ class HandlebarsCompiler {
 
   compile(file) {
     const path = file.path;
-    const data = file.data;
+    let data = file.data;
+
+    if (this.optimize) {
+      data = data.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
+      data = data.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
+    }
 
     try {
       let result;
@@ -58,7 +63,7 @@ class HandlebarsCompiler {
   compileStatic(file) {
     try {
       const template = handlebars.compile(file.data);
-      const source = template(this.staticData);
+      const source = template(this.locals);
 
       return Promise.resolve(source);
     } catch (error) {

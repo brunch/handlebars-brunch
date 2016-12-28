@@ -162,46 +162,26 @@ describe('Plugin', () => {
       plugin = new Plugin(config.compileStaticWitData);
     });
 
-    it('should compile static assets with data', () => {
+    it('should compile template string with data', () => {
       const expected = '<!DOCTYPE html>' +
-        '<html>' +
-        '  <head>' +
-        '    <title>Brunch is awesome!</title>' +
-        '  </head>' +
-        '  <body>' +
-        '  </body>' +
-        '</html>';
+        '<html lang="en">' +
+        '<title>Brunch is awesome!</title>';
       const staticContent = '<!DOCTYPE html>' +
-        '<html>' +
-        '  <head>' +
-        '    <title>{{title}}</title>' +
-        '  </head>' +
-        '  <body>' +
-        '  </body>' +
-        '</html>';
+        '<html lang="en">' +
+        '<title>{{title}}</title>';
 
       return plugin.compileStatic({data: staticContent}).then(content => {
         expect(content).to.equal(expected);
       });
     });
 
-    it('should compile static assets without data', () => {
+    it('should compile template string without data', () => {
       const expected = '<!DOCTYPE html>' +
-        '<html>' +
-        '  <head>' +
-        '    <title>Brunch is awesome!</title>' +
-        '  </head>' +
-        '  <body>' +
-        '  </body>' +
-        '</html>';
+        '<html lang="en">' +
+        '<title>Brunch is awesome!</title>';
       const staticContent = '<!DOCTYPE html>' +
-        '<html>' +
-        '  <head>' +
-        '    <title>Brunch is awesome!</title>' +
-        '  </head>' +
-        '  <body>' +
-        '  </body>' +
-        '</html>';
+        '<html lang="en">' +
+        '<title>Brunch is awesome!</title>';
 
       return plugin.compileStatic({data: staticContent}).then(content => {
         expect(content).to.equal(expected);

@@ -127,7 +127,7 @@ exports.globalNamespaceFunction = {
 exports.compileStaticWitData = {
   plugins: {
     handlebars: {
-      staticData: {
+      locals: {
         title: 'Brunch is awesome!'
       }
     }

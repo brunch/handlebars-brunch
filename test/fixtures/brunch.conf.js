@@ -107,3 +107,29 @@ exports.amdFalse = {
     }
   }
 };
+
+exports.globalNamespaceString = {
+  plugins: {
+    handlebars: {
+      namespace: 'JST.Sub'
+    }
+  }
+};
+
+exports.globalNamespaceFunction = {
+  plugins: {
+    handlebars: {
+      namespace: filePath => 'test_templates'
+    }
+  }
+};
+
+exports.compileStaticWitData = {
+  plugins: {
+    handlebars: {
+      locals: {
+        title: 'Brunch is awesome!'
+      }
+    }
+  }
+};

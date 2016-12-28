@@ -15,6 +15,7 @@ class HandlebarsCompiler {
     this.namespace = typeof ns === 'function' ? ns : () => ns;
     this.pathReplace = config.pathReplace || /^.*templates\//;
     this.includeSettings = config.include || {};
+    this.locals = config.locals || {};
   }
 
   get include() {
@@ -31,19 +32,19 @@ class HandlebarsCompiler {
     ];
   }
 
-  compile(params) {
-    let data = params.data;
-    const path = params.path;
+  compile(file) {
+    const path = file.path;
+    let data = file.data;
 
     if (this.optimize) {
       data = data.replace(/^[\x20\t]+/mg, '').replace(/[\x20\t]+$/mg, '');
       data = data.replace(/^[\r\n]+/, '').replace(/[\r\n]*$/, '\n');
     }
 
-    let result;
     try {
-      const source = `Handlebars.template(${handlebars.precompile(data)})`;
+      let result;
       const ns = this.namespace(path);
+      const source = `Handlebars.template(${handlebars.precompile(data)})`;
 
       if (ns) {
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');
@@ -51,15 +52,29 @@ class HandlebarsCompiler {
       } else {
         result = umd(source);
       }
+
+      return Promise.resolve(result);
     } catch (error) {
       return Promise.reject(error);
     }
-    return Promise.resolve(result);
+
+  }
+
+  compileStatic(file) {
+    try {
+      const template = handlebars.compile(file.data);
+      const source = template(this.locals);
+
+      return Promise.resolve(source);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 
 HandlebarsCompiler.prototype.brunchPlugin = true;
 HandlebarsCompiler.prototype.type = 'template';
 HandlebarsCompiler.prototype.pattern = /\.(hbs|handlebars)$/;
+HandlebarsCompiler.prototype.staticTargetExtension = 'html';
 
 module.exports = HandlebarsCompiler;

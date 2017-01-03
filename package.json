@@ -19,7 +19,11 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^2.1.0",
+    "eslint": "^3.12.2",
+    "eslint-config-brunch": "brunch/eslint-config-brunch",
     "mocha": "^3.2.0"
+  },
+  "eslintConfig": {
+    "extends": "brunch"
   }
 }

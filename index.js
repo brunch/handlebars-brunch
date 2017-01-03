@@ -28,7 +28,7 @@ class HandlebarsCompiler {
 
     return [
       sysPath.join(__dirname, 'dist', includeFile),
-      sysPath.join(__dirname, 'ns.js')
+      sysPath.join(__dirname, 'ns.js'),
     ];
   }
 
@@ -47,6 +47,7 @@ class HandlebarsCompiler {
       const source = `Handlebars.template(${handlebars.precompile(data)})`;
 
       if (ns) {
+        // eslint-disable-next-line prefer-template
         const key = ns + '.' + path.replace(/\\/g, '/').replace(this.pathReplace, '').replace(/\..+?$/, '').replace(/\//g, '.');
         result = `Handlebars.initNS( '${key}' ); ${key} = ${source}`;
       } else {

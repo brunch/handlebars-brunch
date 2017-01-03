@@ -1,3 +1,4 @@
+/* eslint no-undef: 0 */
 'use strict';
 
 const sysPath = require('path');
@@ -14,7 +15,7 @@ describe('Plugin', () => {
 
   beforeEach(() => {
     plugin = new Plugin({
-      plugins: {}
+      plugins: {},
     });
   });
 
@@ -31,7 +32,7 @@ describe('Plugin', () => {
     it('should include runtime compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.runtime.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeTrue);
 
@@ -41,7 +42,7 @@ describe('Plugin', () => {
     it('should include full compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeFalse);
 
@@ -51,7 +52,7 @@ describe('Plugin', () => {
     it('should include full optimized compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.min.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeFalseOptimizedTrue);
 
@@ -61,7 +62,7 @@ describe('Plugin', () => {
     it('should include runtime compiler with amd', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.runtime.amd.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeTrueAmdTrue);
 
@@ -71,7 +72,7 @@ describe('Plugin', () => {
     it('should include optimized runtime compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.runtime.min.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeTrueOptimizeTrue);
 
@@ -81,7 +82,7 @@ describe('Plugin', () => {
     it('should include optimized runtime compiler with amd', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.runtime.amd.min.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.runtimeTrueAmdTrueOptimizeTrue);
 
@@ -94,7 +95,7 @@ describe('Plugin', () => {
     it('should include amd compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.amd.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.amdTrue);
 
@@ -104,7 +105,7 @@ describe('Plugin', () => {
     it('should include optimized amd compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.amd.min.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.amdTrueOptimizeTrue);
 
@@ -114,7 +115,7 @@ describe('Plugin', () => {
     it('should not include amd compiler', () => {
       const expected = [
         sysPath.join(process.cwd(), 'dist', 'handlebars.js'),
-        sysPath.join(process.cwd(), 'ns.js')
+        sysPath.join(process.cwd(), 'ns.js'),
       ];
       plugin = new Plugin(config.amdFalse);
 
@@ -133,8 +134,8 @@ describe('Plugin', () => {
         const expected = '<p>hello</p>';
 
         return plugin.compile({data: content, path: 'templates/hello.hbs'}).then(data => {
-          eval(data);
-          expect(JST.Sub['hello']({a: 'hello'})).to.equal(expected);
+          eval(data); // eslint-disable-line
+          expect(JST.Sub.hello({a: 'hello'})).to.equal(expected);
         });
       });
     });
@@ -149,8 +150,8 @@ describe('Plugin', () => {
         const expected = '<p>hello</p>';
 
         return plugin.compile({data: content, path: 'templates/hello'}).then(data => {
-          eval(data);
-          expect(test_templates['hello']({a: 'hello'})).to.equal(expected);
+          eval(data); // eslint-disable-line
+          expect(test_templates.hello({a: 'hello'})).to.equal(expected); // eslint-disable-line
         });
       });
     });

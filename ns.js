@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Created by papostol on 27/01/2015.
  */

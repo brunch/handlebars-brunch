@@ -66,7 +66,7 @@ In config define `locals`:
 
 ```js
 exports.config = {
-  ...
+  // ...
   plugins: {
     handlebars: {
       locals: {
@@ -74,7 +74,7 @@ exports.config = {
       }
     }
   }
-  ...
+  // ...
 }
 ```
 

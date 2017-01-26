@@ -1,0 +1,16 @@
+{
+  "name": "handlebars-brunch-examples",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "brunch b"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "auto-reload-brunch": "^2.0.0",
+    "brunch": "brunch/brunch",
+    "handlebars-brunch": "brunch/handlebars-brunch"
+  }
+}

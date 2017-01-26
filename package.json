@@ -11,6 +11,7 @@
   },
   "scripts": {
     "postinstall": "node ./postinstall.js",
+    "integration-test": "cd examples && npm i && npm run build",
     "test": "eslint index.js && mocha test/test.js"
   },
   "dependencies": {
